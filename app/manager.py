@@ -1,4 +1,4 @@
-from app.processor import Processor
+from processor import Processor
 from fetcher import Fetcher
 
 
@@ -10,7 +10,7 @@ class Manager:
     async def flow_chart():
         fetcher = Fetcher()
         collection = await fetcher.read_collection()
-        await fetcher.close_conn()
+
 
         processor = Processor(collection)
         processor.rare_word()

@@ -9,7 +9,7 @@ class Fetcher:
         self.conf = Config()
 
     # Open connection
-    def open_conn(self):
+    async def open_conn(self):
         if self.conn is None:
             self.conn = AsyncIOMotorClient(self.conf.MONGO_URI)
         return self.conn
