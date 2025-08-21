@@ -11,7 +11,7 @@ fetch = Fetcher()
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    await fetch.open_conn()
+    fetch.open_conn()
     yield
     await fetch.close_conn()
 

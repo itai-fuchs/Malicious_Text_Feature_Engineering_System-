@@ -20,10 +20,3 @@ class Manager:
         return processor.df.to_dict(orient="records")
 
 
-import asyncio
-
-async def main():
-    data = await Manager.flow_chart()
-    print(data[0])
-
-asyncio.run(main())
