@@ -1,6 +1,6 @@
 import logging
 from document_processor import DocumentProcessor
-from config import producer,not_anti_topic,anti_topic
+from config import producer,not_anti_topic,anti_topic,Classification_filed
 import schedule
 import time
 
@@ -25,10 +25,10 @@ def publish(topic1=anti_topic,topic2=not_anti_topic):
     for doc in docs:
         try:
             if doc.get(Classification_filed) == 1:
-                producer.publish_message(topic1, doc)
+                producer.send(topic1, doc)
                 topic1_count += 1
             else:
-                producer.publish_message(topic2, doc)
+                producer.send(topic2, doc)
                 topic2_count += 1
         except Exception as e:
             logger.error(f"Failed to publish document: {e}")

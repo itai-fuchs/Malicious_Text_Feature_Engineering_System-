@@ -15,7 +15,7 @@ class DocumentProcessor:
         """
         try:
             collection = self.fetcher.get_collection()
-            if not collection:
+            if collection is None:
                 logger.error("No collection available to read documents.")
                 return []
 
