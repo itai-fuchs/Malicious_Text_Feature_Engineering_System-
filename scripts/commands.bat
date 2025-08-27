@@ -8,8 +8,8 @@ oc delete secret --all
 
 #3
 #build api image
-docker build -t itaifuchs/app-api:mongodb .
-docker push itaifuchs/data-loader-api:mongodb
+docker build -t itaifuchs/app .
+docker push itaifuchs/app .
 
 
 #4
