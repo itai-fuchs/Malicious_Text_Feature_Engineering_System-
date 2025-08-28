@@ -4,7 +4,8 @@ nltk.download('vader_lexicon',quiet=True)
 from Preprocessor.utils import process_text
 import re
 from datetime import datetime
-from config import data_path
+import config
+import logging
 
 
 logger = logging.getLogger(__name__)
@@ -12,15 +13,14 @@ logger = logging.getLogger(__name__)
 
 class Enricher:
 
-    def __init__(self,text):
-        self.text=text
 
     """
            Analyze the sentiment of the text using VADER.
     """
-    def sentiment_analyzer(self):
+    @staticmethod
+    def sentiment_analyzer(text):
         try:
-            score = sia.polarity_scores(self.text)
+            score = sia().polarity_scores(text)
             compound = score["compound"]
             if compound >= 0.5:
                 sentiment = "positive"
@@ -37,12 +37,14 @@ class Enricher:
      Find words in the text that match entries in the weapon list.
         
     """
-    def find_weapon(self):
+
+    @staticmethod
+    def find_weapon(text):
         try:
             weapons_list = []
-            with open(data_path, "r") as f:
+            with open(config.data_path, "r") as f:
                 weapon_set = set(process_text(f.read()).split())
-                for word in self.text.split():
+                for word in text.split():
                     if word in weapon_set:
                         weapons_list.append(word)
             return weapons_list
@@ -54,9 +56,13 @@ class Enricher:
     Extract the latest timestamp from the text.
         
     """
-    def latest_timestamp(self):
+    @staticmethod
+    def latest_timestamp(text):
         try:
-            matches = re.findall(r"\d{4}-\d{2}-\d{2}(?: \d{2}:\d{2}(?::\d{2})?)?", self.text)
+            import re
+
+            matches = re.findall(r"\d{4}-\d{2}-\d{2}",text)
+
             if not matches:
                 return None
             dates = [datetime.fromisoformat(m) for m in matches]

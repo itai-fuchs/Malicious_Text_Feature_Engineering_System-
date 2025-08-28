@@ -12,4 +12,15 @@ send_topic_antisemitic = "enriched_preprocessed_tweets_antisemitic"
 send_topic_not_antisemitic = "enriched_preprocessed_tweets_not_antisemitic"
 
 # data config
-data_path="../data/weapon_list.txt"
+data_path="data/weapon_list.txt"
+
+
+#doc config
+
+clean_text ="clean_text"
+original_text ="text"
+
+
+sentiment="sentiment"
+weapons_detected ="weapons_detected"
+relevant_timestamp = "relevant_timestamp"

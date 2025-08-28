@@ -1,6 +1,6 @@
 from kafka_client import create_producer
 from document_processor import DocumentProcessor
-from config import not_anti_topic,anti_topic,Classification_filed
+import config
 import schedule
 import time
 import logging
@@ -13,11 +13,7 @@ logger = logging.getLogger(__name__)
 
 
 
-
-
-
-
-def publish(topic1=anti_topic,topic2=not_anti_topic):
+def publish(topic1=config.anti_topic,topic2=config.not_anti_topic):
     global producer
     docs=processor.read_documents()
     if not docs:
@@ -27,7 +23,7 @@ def publish(topic1=anti_topic,topic2=not_anti_topic):
     topic2_count = 0
     for doc in docs:
         try:
-            if doc.get(Classification_filed) == 1:
+            if doc.get(config.Classification_filed) == 1:
                 producer.send(topic1, doc)
                 topic1_count += 1
             else:

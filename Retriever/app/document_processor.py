@@ -1,5 +1,5 @@
 import logging
-from config import time_filed, Classification_filed, limit
+import config
 from fetcher import Fetcher
 
 logger = logging.getLogger(__name__)
@@ -20,12 +20,12 @@ class DocumentProcessor:
                 return []
 
             docs = list(collection.find(
-                {time_filed: {"$gt": self.last_time}} if self.last_time else {},
+                {config.time_filed: {"$gt": self.last_time}} if self.last_time else {},
                 {"_id": 0}
-            ).sort(time_filed, 1).limit(limit))
+            ).sort(config.time_filed, 1).limit(config.limit))
 
             if docs:
-                self.last_time = docs[-1][time_filed]
+                self.last_time = docs[-1][config.time_filed]
 
             logger.info(f"Fetched {len(docs)} documents. Last time updated to {self.last_time}")
             return docs

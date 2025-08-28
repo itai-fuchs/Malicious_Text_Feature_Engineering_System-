@@ -1,14 +1,10 @@
-from config import send_topic_antisemitic, send_topic_not_antisemitic,get_topic_antisemitic, get_topic_not_antisemitic
+import config
 from enricher import Enricher
-from kafka_client import create_consumer, create_producer
-
+from kafka_client import consumer, producer
+import logging
 logger = logging.getLogger(__name__)
 
 
-
-
-consumer = create_consumer()
-producer = create_producer()
 
 
 def consume_and_produce():
@@ -17,19 +13,20 @@ def consume_and_produce():
         try:
             topic = message.topic
             doc = message.value
-            original_text = doc.get("clean_text", "")
+            clean_text = doc.get(config.clean_text, "")
+            original_text = doc.get(config.original_text, "")
 
             # Enrich the message
-            enricher = Enricher(original_text)
-            doc["sentiment"] = enricher.sentiment_analyzer()
-            doc["weapons_detected"] = enricher.find_weapon()
-            doc["relevant_timestamp"] = enricher.latest_timestamp()
+
+            doc[config.sentiment] = Enricher.sentiment_analyzer(original_text)
+            doc[config.weapons_detected] = Enricher.find_weapon(clean_text)
+            doc[config.relevant_timestamp] = Enricher.latest_timestamp(original_text)
 
             # Determine send topic
-            if topic == get_topic_antisemitic:
-                producer.send(send_topic_antisemitic, doc)
-            elif topic == get_topic_not_antisemitic:
-                producer.send(send_topic_not_antisemitic, doc)
+            if topic == config.get_topic_antisemitic:
+                producer.send(config.send_topic_antisemitic, doc)
+            elif topic == config.get_topic_not_antisemitic:
+                producer.send(config.send_topic_not_antisemitic, doc)
             else:
                 logger.warning(f"Unknown topic: {topic}")
 

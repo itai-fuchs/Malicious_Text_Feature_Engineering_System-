@@ -1,5 +1,5 @@
 from pymongo import MongoClient, errors
-from config import MONGO_URI, MONGO_DB, COLLECTION
+import config
 import logging
 
 # Create a logger for this module
@@ -16,7 +16,7 @@ class Fetcher:
         """
         if self.conn is None:
             try:
-                self.conn = MongoClient(MONGO_URI)
+                self.conn = MongoClient(config.MONGO_URI)
                 logger.info("MongoDB connection opened successfully.")
             except errors.PyMongoError as e:
                 logger.error(f"Failed to connect to MongoDB: {e}")
@@ -31,11 +31,11 @@ class Fetcher:
         conn = self.open_conn()
         if conn:
             try:
-                collection = conn[MONGO_DB][COLLECTION]
-                logger.debug(f"Accessed collection {COLLECTION} in DB {MONGO_DB}.")
+                collection = conn[config.MONGO_DB][config.COLLECTION]
+                logger.debug(f"Accessed collection {config.COLLECTION} in DB {config.MONGO_DB}.")
                 return collection
             except Exception as e:
-                logger.error(f"Failed to access collection {COLLECTION}: {e}")
+                logger.error(f"Failed to access collection {config.COLLECTION}: {e}")
                 return None
         else:
             logger.error("No MongoDB connection available.")
