@@ -28,4 +28,4 @@ async def get_data():
 
 
 if "__main__" == __name__:
-    uvicorn.run(app, host="127.0.0.1", port=8000)
+    uvicorn.run(app, host="127.0.0.1", port=8001)

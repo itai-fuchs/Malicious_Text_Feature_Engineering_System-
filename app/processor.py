@@ -13,10 +13,10 @@ class Processor:
 
 #add a column that containing the rarest word in the record.
     def rare_word(self):
-        if "Text" not in self.df.columns:
+        if "text" not in self.df.columns:
             raise ValueError("DataFrame must contain 'Text' column")
         rare_words = []
-        for tweet in self.df["Text"]:
+        for tweet in self.df["text"]:
             words = pd.Series(tweet.lower().split())
             rarest_word = words.value_counts().idxmin() if not words.empty else None
             rare_words.append(rarest_word)
@@ -24,11 +24,11 @@ class Processor:
 
 # analyzer the sentiment of the tweets
     def sentiment_intensity_analyzer(self):
-        if "Text" not in self.df.columns:
+        if "text" not in self.df.columns:
             raise ValueError("DataFrame must contain 'Text' column")
         sentiment = []
         sia = SentimentIntensityAnalyzer()
-        for tweet in self.df["Text"]:
+        for tweet in self.df["text"]:
             score = sia.polarity_scores(tweet)
             compound=score["compound"]
             if compound >= 0.5:
@@ -41,14 +41,14 @@ class Processor:
         self.df["SentimentIntensityAnalyzer"] = sentiment
 
     def find_weapon(self):
-        if "Text" not in self.df.columns:
+        if "text" not in self.df.columns:
             raise ValueError("DataFrame must contain 'Text' column")
 
         with open("../data/weapon_list.txt", "r") as f:
             weapon_set = set(line.strip() for line in f)
 
         weapons = []
-        for tweet in self.df["Text"]:
+        for tweet in self.df["text"]:
             found = None
             for word in tweet.split():
                 if word in weapon_set:
