@@ -11,7 +11,8 @@ def consume_and_produce():
         original_text = data.get("text", "")
 
         processed = process_text(original_text)
-        data["processed_text"] = processed
+
+        data["clean_text"] = processed
 
         if topic == "raw_tweets_antisemitic":
             producer.send("preprocessed_tweets_antisemitic", data)
