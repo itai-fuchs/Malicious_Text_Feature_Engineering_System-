@@ -2,7 +2,7 @@ from kafka import KafkaConsumer, KafkaProducer
 from config import KAFKA_BROKERS,get_topic_antisemitic,get_topic_not_antisemitic
 import json, logging
 
-logging.basicConfig(level=logging.WARNING)
+
 logger = logging.getLogger(__name__)
 
 

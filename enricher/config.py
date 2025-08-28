@@ -1,5 +1,7 @@
+import logging
 
-
+#log config
+logging.basicConfig(level=logging.ERROR)
 #kafka config
 KAFKA_BROKERS = ["localhost:9092"]
 

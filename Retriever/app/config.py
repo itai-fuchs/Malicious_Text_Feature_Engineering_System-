@@ -1,10 +1,8 @@
 import os
-from kafka import KafkaProducer
-import json
 import logging
 
 # Logger setup
-logging.basicConfig(level=logging.WARNING, format="%(asctime)s [%(levelname)s] %(message)s")
+logging.basicConfig(level=logging.ERROR, format="%(asctime)s [%(levelname)s] %(message)s")
 logger = logging.getLogger(__name__)
 
 # MongoDB config
@@ -26,15 +24,7 @@ limit = 100
 time_filed = "CreateDate"
 
 # Kafka config
-try:
-    producer = KafkaProducer(
-        bootstrap_servers=['localhost:9092'],
-        value_serializer=lambda x: json.dumps(x, default=str).encode('utf-8')
-    )
-    logger.info("Kafka Producer initialized successfully.")
-except Exception as e:
-    logger.error(f"Failed to initialize Kafka Producer: {e}")
-    producer = None
 
+KAFKA_BROKERS = ["localhost:9092"]
 anti_topic="raw_tweets_antisemitic"
 not_anti_topic="raw_tweets_not_antisemitic"

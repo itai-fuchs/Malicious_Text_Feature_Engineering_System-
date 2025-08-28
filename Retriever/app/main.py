@@ -1,21 +1,24 @@
-import logging
+from kafka_client import create_producer
 from document_processor import DocumentProcessor
-from config import producer,not_anti_topic,anti_topic,Classification_filed
+from config import not_anti_topic,anti_topic,Classification_filed
 import schedule
 import time
+import logging
 
 
-
+processor=DocumentProcessor()
+producer=create_producer()
 
 logger = logging.getLogger(__name__)
-processor=DocumentProcessor()
+
+
 
 
 
 
 
 def publish(topic1=anti_topic,topic2=not_anti_topic):
-
+    global producer
     docs=processor.read_documents()
     if not docs:
         logger.info("No new documents to publish.")
@@ -30,6 +33,7 @@ def publish(topic1=anti_topic,topic2=not_anti_topic):
             else:
                 producer.send(topic2, doc)
                 topic2_count += 1
+
         except Exception as e:
             logger.error(f"Failed to publish document: {e}")
 
@@ -41,6 +45,8 @@ def publish(topic1=anti_topic,topic2=not_anti_topic):
         logger.info("MongoDB connection closed after publishing.")
     except Exception as e:
         logger.warning(f"Failed to close MongoDB connection: {e}")
+
+
 
 
 
