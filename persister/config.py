@@ -2,7 +2,7 @@ KAFKA_BROKER = "localhost:9092"
 
 KAFKA_TOPICS = {
     "antisemitic": "enriched_preprocessed_tweets_antisemitic",
-    "not_antisemitic": "enriched_preprocessed_tweets_not_antisemitic "
+    "not_antisemitic": "enriched_preprocessed_tweets_not_antisemitic"
 }
 
 MONGO_URI = "mongodb://localhost:27017/"

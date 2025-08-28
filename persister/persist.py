@@ -10,7 +10,7 @@ class Persister:
             "not_antisemitic": self.db[config.MONGO_COLLECTIONS["not_antisemitic"]],
         }
 
-    def save(self, label, document: dict):
+    def save(self, label, document):
         if label not in self.collections:
             raise ValueError(f"Unknown label: {label}")
         self.collections[label].insert_one(document)
