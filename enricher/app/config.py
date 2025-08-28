@@ -1,7 +1,7 @@
 import logging
 
 #log config
-logging.basicConfig(level=logging.ERROR)
+logging.basicConfig(level=logging.INFO)
 #kafka config
 KAFKA_BROKERS = ["broker:9092"]
 

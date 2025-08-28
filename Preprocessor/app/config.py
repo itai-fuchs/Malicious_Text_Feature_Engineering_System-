@@ -3,7 +3,7 @@ import logging
 logger = logging.getLogger(__name__)
 
 #loger config
-logging.basicConfig(level=logging.ERROR, format="%(asctime)s [%(levelname)s] %(message)s")
+logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
 
 # kafka config
 get_topic_antisemitic= "raw_tweets_antisemitic"
