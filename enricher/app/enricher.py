@@ -1,7 +1,7 @@
 from nltk.sentiment.vader import SentimentIntensityAnalyzer as sia
 import nltk
 nltk.download('vader_lexicon',quiet=True)
-from Preprocessor.utils import process_text
+from Preprocessor.app.utils import process_text
 from datetime import datetime
 import config
 import logging

@@ -3,7 +3,7 @@ import logging
 #log config
 logging.basicConfig(level=logging.ERROR)
 #kafka config
-KAFKA_BROKERS = ["localhost:9092"]
+KAFKA_BROKERS = ["broker:9092"]
 
 #topics config
 get_topic_antisemitic = "preprocessed_tweets_antisemitic"

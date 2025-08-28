@@ -44,16 +44,16 @@ def publish(topic1=config.anti_topic,topic2=config.not_anti_topic):
 
 
 
+if __name__ == "__main__":
+
+    publish()
+    schedule.every(1).minutes.do(publish)
+
+    while True:
 
 
-publish()
-schedule.every(1).minutes.do(publish)
-
-while True:
-
-
-    schedule.run_pending()
-    time.sleep(1)
+        schedule.run_pending()
+        time.sleep(1)
 
 
 

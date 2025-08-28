@@ -1,9 +1,9 @@
 import os
 import logging
-
+logger = logging.getLogger(__name__)
 # Logger config
 logging.basicConfig(level=logging.ERROR, format="%(asctime)s [%(levelname)s] %(message)s")
-logger = logging.getLogger(__name__)
+
 
 # MongoDB config
 MONGO_DB   = os.getenv("MONGO_DB", "IranMalDB")
@@ -25,6 +25,6 @@ time_filed = "CreateDate"
 
 # Kafka config
 
-KAFKA_BROKERS = ["localhost:9092"]
+KAFKA_BROKERS = ["broker:9092"]
 anti_topic="raw_tweets_antisemitic"
 not_anti_topic="raw_tweets_not_antisemitic"
