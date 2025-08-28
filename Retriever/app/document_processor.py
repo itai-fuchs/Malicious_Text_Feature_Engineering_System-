@@ -21,7 +21,7 @@ class DocumentProcessor:
 
             docs = list(collection.find(
                 {config.time_filed: {"$gt": self.last_time}} if self.last_time else {},
-                {"_id": 0}
+                {"_id": 0,"TweetID":0}
             ).sort(config.time_filed, 1).limit(config.limit))
 
             if docs:

@@ -1,4 +1,4 @@
-from Preprocessor.text_processing import TextProcessing
+from text_processing import TextProcessing
 
 
 def process_text(text):
